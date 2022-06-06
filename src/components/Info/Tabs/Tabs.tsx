@@ -1,30 +1,29 @@
-import { useState } from "react"
-import Details from "../Details/Details"
-import Forecast from "../Forecast/Forecast"
-import Now from "../Now/Now"
-import Tab from "./Tab"
-import TabsNav from "./TabsNav"
-
+import { useState } from 'react';
+import Tab from './Tab';
+import { tabs } from './tabsData';
+import TabsNav from './TabsNav';
 
 const Tabs = () => {
-    const [selected, setSelected] = useState('Now')
-    const tabs = ['Now', 'Details', 'Forecast'];
+  const [selected, setSelected] = useState('Now');
 
-    return (
-        <div className="info__tabs tabs">
-            <TabsNav tabs={tabs} selected={selected} setSelected={setSelected} >
-                <Tab isSelected={selected === tabs[0]} >
-                    <Now />
-                </Tab>
-                <Tab isSelected={selected === tabs[1]} >
-                    <Details />
-                </Tab>
-                <Tab isSelected={selected === tabs[2]} >
-                    <Forecast />
-                </Tab>
-            </TabsNav>
-        </div>
-    )
-}
+  return (
+    <div className="info__tabs tabs">
+      <TabsNav
+        tabs={tabs}
+        selected={selected}
+        setSelected={setSelected}
+      >
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.name}
+            isSelected={selected === tab.name}
+          >
+            <tab.component />
+          </Tab>
+        ))}
+      </TabsNav>
+    </div>
+  );
+};
 
-export default Tabs
+export default Tabs;
