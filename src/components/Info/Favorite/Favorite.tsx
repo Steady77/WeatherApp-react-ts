@@ -1,6 +1,7 @@
+import { FC } from "react";
 import FavoriteList from "./FavoriteList";
 
-const Favorite = () => {
+const Favorite: FC = () => {
     return (
         <div className="info__locations locations">
             <div>
