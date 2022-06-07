@@ -1,15 +1,23 @@
-const TabsNav = ({ children, tabs, selected, setSelected }: any) => {
+import { FC, PropsWithChildren } from 'react';
+import { ITabsNavProps } from '../../../types';
+
+const TabsNav: FC<PropsWithChildren<ITabsNavProps>> = ({
+  children,
+  tabs,
+  selected,
+  setSelected,
+}) => {
   return (
     <>
       <div className="tabs__content-box">{children}</div>
       <div className="tabs__items">
-        {tabs.map(({ name }: any) => (
+        {tabs.map((tab: string) => (
           <button
-            key={name}
-            onClick={() => setSelected(name)}
-            className={`tabs__item ${name === selected ? 'tabs__item--active' : ''}`}
+            key={tab}
+            onClick={() => setSelected(tab)}
+            className={`tabs__item ${tab === selected ? 'tabs__item--active' : ''}`}
           >
-            {name}
+            {tab}
           </button>
         ))}
       </div>

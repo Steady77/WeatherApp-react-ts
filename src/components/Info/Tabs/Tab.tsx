@@ -1,13 +1,8 @@
-const Tab = ({ children, isSelected }: any) => {
-    return (
-        <>
-            {isSelected &&
-                <div>
-                    {children}
-                </div>
-            }
-        </>
-    )
-}
+import { FC, PropsWithChildren } from 'react';
+import { ITabProps } from '../../../types';
 
-export default Tab
+const Tab: FC<PropsWithChildren<ITabProps>> = ({ children, isSelected }) => {
+  return <>{isSelected && <div>{children}</div>}</>;
+};
+
+export default Tab;
