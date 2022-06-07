@@ -1,24 +1,10 @@
 {
-    "tabWidth": 2,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "semi": true,
-    "printWidth": 100,
-    "jsxSingleQuote": false,
-    "bracketSameLine": false,
-    "singleAttributePerLine": true,
-    "overrides": [
-      {
-        "files": ["*.js", "*.jsx"],
-        "options": {
-            "tabWidth": 2
-        }
-      },
-      {
-        "files": ["*.html", "*.css"],
-        "options": {
-          "tabWidth": 2
-        }
-      }
-    ]
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": true,
+  "printWidth": 100,
+  "jsxSingleQuote": false,
+  "bracketSameLine": false,
+  "singleAttributePerLine": true
 }
