@@ -1,29 +1,44 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export interface INowProps {
-  cityData: ICityData | null;
+export interface IHeartButtonProps {
+  onClick: () => void;
+  className: string;
 }
 
 export interface IDetailsProps {
   cityData: ICityData | null;
 }
 
-export interface IInfoProps {
-  cityData: ICityData | null;
+export interface INowProps extends IDetailsProps {
+  setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
+  favoriteList: Set<string>;
+}
+
+export interface ITabsProps extends INowProps {
   forecastData: IForecastData | null;
 }
 
-export interface ITabsProps {
-  cityData: ICityData | null;
+export interface IInfoProps extends IDetailsProps {
   forecastData: IForecastData | null;
+  setCity: Dispatch<SetStateAction<string>>;
 }
 
 export interface IForecastProps {
   forecastData: IForecastData | null;
 }
 
+export interface IFavoriteProps {
+  favoriteList: Set<string>;
+  setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
+  setCity: Dispatch<SetStateAction<string>>;
+}
+
+export interface IFavoriteItemProps extends IFavoriteProps {
+  city: string;
+}
+
 export interface IForecastItemProps {
-  item: ForecastType;
+  item: ForecastDataType;
 }
 
 export interface IHeaderProps {
@@ -44,7 +59,7 @@ export interface IForecastData {
   city: {
     name: string;
   };
-  list: Array<ForecastType>;
+  list: Array<ForecastDataType>;
 }
 
 export interface ICityData {
@@ -67,7 +82,7 @@ type WeatherDataType = {
   main: string;
 };
 
-type ForecastType = {
+type ForecastDataType = {
   main: {
     temp: number;
     feels_like: number;

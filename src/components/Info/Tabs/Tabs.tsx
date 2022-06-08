@@ -6,9 +6,10 @@ import Now from '../Now/Now';
 import Tab from './Tab';
 import TabsNav from './TabsNav';
 
-const Tabs: FC<ITabsProps> = ({ cityData, forecastData }) => {
-  const [selected, setSelected] = useState('Now');
-  const tabs = ['Now', 'Details', 'Forecast'];
+const tabs = ['Now', 'Details', 'Forecast'];
+
+const Tabs: FC<ITabsProps> = ({ cityData, forecastData, setFavoriteList, favoriteList }) => {
+  const [selected, setSelected] = useState(tabs[0]);
 
   return (
     <div className="info__tabs tabs">
@@ -22,7 +23,11 @@ const Tabs: FC<ITabsProps> = ({ cityData, forecastData }) => {
         ) : (
           <>
             <Tab isSelected={selected === tabs[0]}>
-              <Now cityData={cityData} />
+              <Now
+                favoriteList={favoriteList}
+                cityData={cityData}
+                setFavoriteList={setFavoriteList}
+              />
             </Tab>
             <Tab isSelected={selected === tabs[1]}>
               <Details cityData={cityData} />
