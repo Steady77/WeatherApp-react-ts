@@ -1,44 +1,30 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export interface IHeartButtonProps {
-  onClick: () => void;
-  className: string;
-}
-
-export interface IDetailsProps {
-  cityData: ICityData | null;
-}
-
-export interface INowProps extends IDetailsProps {
+export interface IFavoriteListContext {
   setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
   favoriteList: Set<string>;
 }
 
-export interface ITabsProps extends INowProps {
-  forecastData: IForecastData | null;
-}
-
-export interface IInfoProps extends IDetailsProps {
+export interface IDataContext {
+  weatherData: IWeatherData | null;
   forecastData: IForecastData | null;
   setCity: Dispatch<SetStateAction<string>>;
 }
 
-export interface IForecastProps {
-  forecastData: IForecastData | null;
-}
-
-export interface IFavoriteProps {
-  favoriteList: Set<string>;
+export interface IFavoriteItemProps {
   setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
+  favoriteList: Set<string>;
   setCity: Dispatch<SetStateAction<string>>;
-}
-
-export interface IFavoriteItemProps extends IFavoriteProps {
   city: string;
 }
 
 export interface IForecastItemProps {
   item: ForecastDataType;
+}
+
+export interface IHeartButtonProps {
+  onClick: () => void;
+  className: string;
 }
 
 export interface IHeaderProps {
@@ -55,17 +41,15 @@ export interface ITabsNavProps {
   setSelected: Dispatch<SetStateAction<string>>;
 }
 
-export interface IForecastData {
-  city: {
-    name: string;
-  };
-  list: Array<ForecastDataType>;
-}
+type WeatherDataType = {
+  icon: string;
+  main: string;
+};
 
-export interface ICityData {
+export interface IWeatherData {
   message: string;
   name: string;
-  cod: number;
+  cod: string | number;
   sys: {
     sunrise: number;
     sunset: number;
@@ -77,11 +61,6 @@ export interface ICityData {
   weather: Array<WeatherDataType>;
 }
 
-type WeatherDataType = {
-  icon: string;
-  main: string;
-};
-
 type ForecastDataType = {
   main: {
     temp: number;
@@ -91,3 +70,12 @@ type ForecastDataType = {
   dt_txt: string;
   weather: Array<WeatherDataType>;
 };
+
+export interface IForecastData {
+  message: string;
+  cod: string | number;
+  city: {
+    name: string;
+  };
+  list: Array<ForecastDataType>;
+}

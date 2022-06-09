@@ -1,8 +1,13 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import FavoriteItem from './FavoriteItem';
-import { IFavoriteProps } from '../../../types';
+import { IDataContext, IFavoriteListContext } from '../../../types';
+import { FavoriteListContext } from '../Info';
+import { DataContext } from '../../../App';
 
-const FavoriteList: FC<IFavoriteProps> = ({ favoriteList, setFavoriteList, setCity }) => {
+const FavoriteList: FC = () => {
+  const { favoriteList, setFavoriteList } = useContext(FavoriteListContext) as IFavoriteListContext;
+  const { setCity } = useContext(DataContext) as IDataContext;
+
   return (
     <ul className="locations__list">
       {Array.from(favoriteList).map((city: string) => (

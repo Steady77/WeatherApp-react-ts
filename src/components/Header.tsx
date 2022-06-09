@@ -1,19 +1,22 @@
-import { FC, FormEvent, useState } from "react";
-import { IHeaderProps } from "../types";
+import { FC, FormEvent, useState } from 'react';
+import { IHeaderProps } from '../types';
 
-const Header: FC<IHeaderProps> = ({setCity}) => {
-  const [inputValue, setInputValue] = useState('')
+const Header: FC<IHeaderProps> = ({ setCity }) => {
+  const [inputValue, setInputValue] = useState('');
 
   const onSubmitCity = (event: FormEvent) => {
     event.preventDefault();
-    if (!inputValue) return;
-    setCity(inputValue);
+    if (!inputValue.trim()) return;
+    setCity(inputValue.trim());
     setInputValue('');
-  }
+  };
 
   return (
     <div className="header">
-      <form onSubmit={onSubmitCity} className="form">
+      <form
+        onSubmit={onSubmitCity}
+        className="form"
+      >
         <input
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}

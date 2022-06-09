@@ -1,10 +1,12 @@
-import { FC, useEffect, useState } from 'react';
-import { IInfoProps } from '../../types';
+import { createContext, FC, useEffect, useState } from 'react';
+import { IFavoriteListContext } from '../../types';
 import { getFromLocalStorage, saveToLocalStorage } from '../../utils/helpers';
 import Favorite from './Favorite/Favorite';
 import Tabs from './Tabs/Tabs';
 
-const Info: FC<IInfoProps> = ({ cityData, forecastData, setCity }) => {
+export const FavoriteListContext = createContext<IFavoriteListContext | null>(null);
+
+const Info: FC = () => {
   const [favoriteList, setFavoriteList] = useState<Set<string>>(
     new Set(getFromLocalStorage('favorite', '[]')),
   );
@@ -15,17 +17,10 @@ const Info: FC<IInfoProps> = ({ cityData, forecastData, setCity }) => {
 
   return (
     <div className="info">
-      <Tabs
-        favoriteList={favoriteList}
-        setFavoriteList={setFavoriteList}
-        cityData={cityData}
-        forecastData={forecastData}
-      />
-      <Favorite
-        setCity={setCity}
-        favoriteList={favoriteList}
-        setFavoriteList={setFavoriteList}
-      />
+      <FavoriteListContext.Provider value={{ favoriteList, setFavoriteList }}>
+        <Tabs />
+        <Favorite />
+      </FavoriteListContext.Provider>
     </div>
   );
 };
