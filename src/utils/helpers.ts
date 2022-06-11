@@ -1,9 +1,12 @@
 import { format } from 'date-fns';
 
-export const formatTime = (date: number | undefined) => {
-  if (date) {
-    return format(new Date(date * 1000), 'kk:mm');
+export const formatTime = (date: number, timezone?: number) => {
+  if (timezone) {
+    const shiftedTimeZone = timezone + new Date().getTimezoneOffset() * 60;
+    const curDate = (date + shiftedTimeZone) * 1000;
+    return format(new Date(curDate), 'kk:mm');
   }
+  return format(new Date(date * 1000), 'kk:mm');
 };
 
 export const formatDate = (date: string) => format(new Date(date), 'd MMM');

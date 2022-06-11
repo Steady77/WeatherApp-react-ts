@@ -18,10 +18,6 @@ export interface IFavoriteItemProps {
   city: string;
 }
 
-export interface IForecastItemProps {
-  item: ForecastDataType;
-}
-
 export interface IHeartButtonProps {
   onClick: () => void;
   className: string;
@@ -47,6 +43,7 @@ type WeatherDataType = {
 };
 
 export interface IWeatherData {
+  timezone: number;
   message: string;
   name: string;
   cod: string | number;
@@ -61,7 +58,7 @@ export interface IWeatherData {
   weather: Array<WeatherDataType>;
 }
 
-type ForecastDataType = {
+export type ForecastDataType = {
   main: {
     temp: number;
     feels_like: number;
