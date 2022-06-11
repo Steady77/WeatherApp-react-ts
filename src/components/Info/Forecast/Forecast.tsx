@@ -7,7 +7,14 @@ const Forecast: FC = () => {
   const { forecastData } = useContext(DataContext) as IDataContext;
 
   if (!forecastData) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="info__now"
+        style={{ fontSize: '22px', textAlign: 'center' }}
+      >
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -17,7 +24,7 @@ const Forecast: FC = () => {
         {forecastData.list.map((item) => (
           <ForecastItem
             key={item.dt}
-            item={item}
+            {...item}
           />
         ))}
       </div>

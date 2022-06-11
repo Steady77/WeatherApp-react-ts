@@ -10,7 +10,14 @@ const Now: FC = () => {
   const { favoriteList, setFavoriteList } = useContext(FavoriteListContext) as IFavoriteListContext;
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="info__now"
+        style={{ fontSize: '22px', textAlign: 'center' }}
+      >
+        Loading...
+      </div>
+    );
   }
 
   const addToFavorite = () => {

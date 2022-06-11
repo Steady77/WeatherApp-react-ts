@@ -1,26 +1,33 @@
 import { FC, useContext } from 'react';
 import { formatTime } from '../../../utils/helpers';
 import { DataContext } from '../../../App';
-import { IDataContext } from '../../../types';
+import { IDataContext, IWeatherData } from '../../../types';
 
 const Details: FC = () => {
   const { weatherData } = useContext(DataContext) as IDataContext;
 
   if (!weatherData) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="info__now"
+        style={{ fontSize: '22px', textAlign: 'center' }}
+      >
+        Loading...
+      </div>
+    );
   }
+
+  const { name, main, sys, timezone, weather } = weatherData as IWeatherData;
 
   return (
     <div className="info__details">
-      <h4 className="info__details-city">{weatherData.name}</h4>
+      <h4 className="info__details-city">{name}</h4>
       <ul className="info__details-list">
-        <li className="info__details-item">Temperature: {Math.round(weatherData.main.temp)}°</li>
-        <li className="info__details-item">
-          Feels like: {Math.round(weatherData.main.feels_like)}°
-        </li>
-        <li className="info__details-item">Weather: {weatherData.weather[0].main}</li>
-        <li className="info__details-item">Sunrise: {formatTime(weatherData.sys.sunrise)}</li>
-        <li className="info__details-item">Sunset: {formatTime(weatherData.sys.sunset)}</li>
+        <li className="info__details-item">Temperature: {Math.round(main.temp)}°</li>
+        <li className="info__details-item">Feels like: {Math.round(main.feels_like)}°</li>
+        <li className="info__details-item">Weather: {weather[0].main}</li>
+        <li className="info__details-item">Sunrise: {formatTime(sys.sunrise, timezone)}</li>
+        <li className="info__details-item">Sunset: {formatTime(sys.sunset, timezone)}</li>
       </ul>
     </div>
   );
