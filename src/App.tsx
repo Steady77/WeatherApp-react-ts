@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import Header from './components/Header';
 import Info from './components/Info/Info';
 import { IWeatherData, IForecastData, IDataContext } from './types';
+import { fetchData } from './utils/requests';
 import { API_KEY, DEFAULT_CITY, SERVER_URL, TIMESTAMPS_NUMBER } from './utils/consts';
 import { getFromLocalStorage, saveToLocalStorage } from './utils/helpers';
 
@@ -12,30 +13,18 @@ const initialCity: string = !getFromLocalStorage('city')
   : getFromLocalStorage('city');
 
 function App() {
-  const [weatherData, setCityData] = useState<IWeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const [forecastData, setForecastData] = useState<IForecastData | null>(null);
   const [city, setCity] = useState<string>(initialCity);
 
   useEffect(() => {
-    fetch(`${SERVER_URL}weather?q=${city}&appid=${API_KEY}&units=metric`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.code === 200) {
-          setCityData(data);
-        } else {
-          throw new Error(data.message);
-        }
-      })
-      .catch(alert);
+    const weatherURL = `${SERVER_URL}weather?q=${city}&appid=${API_KEY}&units=metric`;
+    const forecastURL = `${SERVER_URL}forecast?q=${city}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`;
 
-    fetch(`${SERVER_URL}forecast?q=${city}&appid=${API_KEY}&units=metric&cnt=${TIMESTAMPS_NUMBER}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.cod === '200') {
-          setForecastData(data);
-        } else {
-          throw new Error(data.message);
-        }
+    Promise.all([fetchData(weatherURL), fetchData(forecastURL)])
+      .then(([weatherResp, forecastResp]) => {
+        setWeatherData(weatherResp);
+        setForecastData(forecastResp);
       })
       .catch(alert);
 
