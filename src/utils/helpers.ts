@@ -23,9 +23,14 @@ export const saveToLocalStorage = (key: string, value: Set<string> | string) => 
   }
 };
 
-export const getFromLocalStorage = (key: string, defaultValue: string = '0') => {
+export const getFromLocalStorage = (key: string) => {
   try {
-    return JSON.parse(localStorage.getItem(key) || defaultValue);
+    const data = localStorage.getItem(key);
+    if (typeof data === 'string') {
+      return JSON.parse(data);
+    } else {
+      return null;
+    }
   } catch (error) {
     console.log(error);
     localStorage.setItem(key, '[]');

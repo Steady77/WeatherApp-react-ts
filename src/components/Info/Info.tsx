@@ -8,7 +8,7 @@ export const FavoriteListContext = createContext<IFavoriteListContext | null>(nu
 
 const Info: FC = () => {
   const [favoriteList, setFavoriteList] = useState<Set<string>>(
-    new Set(getFromLocalStorage('favorite', '[]')),
+    new Set(getFromLocalStorage('favorite')),
   );
 
   useEffect(() => {

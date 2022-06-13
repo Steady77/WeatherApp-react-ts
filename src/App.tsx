@@ -11,7 +11,7 @@ export const DataContext = createContext<IDataContext | null>(null);
 function App() {
   const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
   const [forecastData, setForecastData] = useState<IForecastData | null>(null);
-  const [city, setCity] = useState<string>(getFromLocalStorage('city') || DEFAULT_CITY);
+  const [city, setCity] = useState<string>(getFromLocalStorage('city') ?? DEFAULT_CITY);
 
   useEffect(() => {
     const weatherURL = `${SERVER_URL}weather?q=${city}&appid=${API_KEY}&units=metric`;
