@@ -1,14 +1,10 @@
 import { FC, useState } from 'react';
-import Details from '../Details/Details';
-import Forecast from '../Forecast/Forecast';
-import Now from '../Now/Now';
 import Tab from './Tab';
+import { tabs } from './tabsData';
 import TabsNav from './TabsNav';
 
-const tabs = ['Now', 'Details', 'Forecast'];
-
 const Tabs: FC = () => {
-  const [selected, setSelected] = useState(tabs[0]);
+  const [selected, setSelected] = useState(tabs[0].name);
 
   return (
     <div className="info__tabs tabs">
@@ -17,15 +13,14 @@ const Tabs: FC = () => {
         selected={selected}
         setSelected={setSelected}
       >
-        <Tab isSelected={selected === tabs[0]}>
-          <Now />
-        </Tab>
-        <Tab isSelected={selected === tabs[1]}>
-          <Details />
-        </Tab>
-        <Tab isSelected={selected === tabs[2]}>
-          <Forecast />
-        </Tab>
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.name}
+            isSelected={selected === tab.name}
+          >
+            <tab.component />
+          </Tab>
+        ))}
       </TabsNav>
     </div>
   );

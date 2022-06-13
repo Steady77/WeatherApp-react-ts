@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 export interface IFavoriteListContext {
   setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
@@ -32,10 +32,15 @@ export interface ITabProps {
 }
 
 export interface ITabsNavProps {
-  tabs: string[];
+  tabs: TabsType;
   selected: string;
   setSelected: Dispatch<SetStateAction<string>>;
 }
+
+type TabsType = Array<{
+  name: string;
+  component: FC<{}>;
+}>;
 
 type WeatherDataType = {
   icon: string;

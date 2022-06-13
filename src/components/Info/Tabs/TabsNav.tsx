@@ -11,13 +11,13 @@ const TabsNav: FC<PropsWithChildren<ITabsNavProps>> = ({
     <>
       <div className="tabs__content-box">{children}</div>
       <div className="tabs__items">
-        {tabs.map((tab: string) => (
+        {tabs.map((tab) => (
           <button
-            key={tab}
-            onClick={() => setSelected(tab)}
-            className={`tabs__item ${tab === selected ? 'tabs__item--active' : ''}`}
+            key={tab.name}
+            onClick={() => setSelected(tab.name)}
+            className={`tabs__item ${tab.name === selected ? 'tabs__item--active' : ''}`}
           >
-            {tab}
+            {tab.name}
           </button>
         ))}
       </div>
