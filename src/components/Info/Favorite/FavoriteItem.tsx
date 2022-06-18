@@ -1,9 +1,13 @@
 import { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { setFavorite } from '../../../redux/actions/favoriteList';
 import { IFavoriteItemProps } from '../../../types';
 
-const FavoriteItem: FC<IFavoriteItemProps> = ({ city, setFavoriteList, favoriteList, setCity }) => {
+const FavoriteItem: FC<IFavoriteItemProps> = ({ city, favoriteList, setCity }) => {
+  const dispatch = useDispatch();
   const deleteFromFavorite = () => {
-    setFavoriteList(new Set(Array.from(favoriteList).filter((item) => item !== city)));
+    const list = new Set(Array.from(favoriteList).filter((item) => item !== city));
+    dispatch(setFavorite(list));
   };
 
   return (

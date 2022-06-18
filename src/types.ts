@@ -12,7 +12,6 @@ export interface IDataContext {
 }
 
 export interface IFavoriteItemProps {
-  setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
   favoriteList: Set<string>;
   setCity: Dispatch<SetStateAction<string>>;
   city: string;

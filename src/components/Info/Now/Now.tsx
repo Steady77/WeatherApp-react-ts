@@ -2,12 +2,15 @@ import { FC, useContext } from 'react';
 import { DataContext } from '../../../App';
 import { IDataContext } from '../../../types';
 import HeartButton from './HeartButton/HeartButton';
-import { IFavoriteListContext } from '../../../types';
-import { FavoriteListContext } from '../Info';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
+import { useDispatch } from 'react-redux';
+import { setFavorite } from '../../../redux/actions/favoriteList';
 
 const Now: FC = () => {
   const { weatherData } = useContext(DataContext) as IDataContext;
-  const { favoriteList, setFavoriteList } = useContext(FavoriteListContext) as IFavoriteListContext;
+  const favoriteList = useSelector((state: RootState) => state.favoriteList.items);
+  const dispatch = useDispatch();
 
   if (!weatherData) {
     return (
@@ -21,11 +24,12 @@ const Now: FC = () => {
   }
 
   const addToFavorite = () => {
-    setFavoriteList(new Set(favoriteList.add(weatherData.name)));
+    dispatch(setFavorite(new Set(favoriteList.add(weatherData.name))));
   };
 
   const removeFromFavorite = () => {
-    setFavoriteList(new Set(Array.from(favoriteList).filter((item) => item !== weatherData.name)));
+    const list = new Set(Array.from(favoriteList).filter((item) => item !== weatherData.name));
+    dispatch(setFavorite(list));
   };
 
   return (
