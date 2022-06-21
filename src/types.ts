@@ -1,29 +1,12 @@
 import { Dispatch, FC, SetStateAction } from 'react';
 
-export interface IFavoriteListContext {
-  setFavoriteList: Dispatch<SetStateAction<Set<string>>>;
-  favoriteList: Set<string>;
-}
-
-export interface IDataContext {
-  weatherData: IWeatherData | null;
-  forecastData: IForecastData | null;
-  setCity: Dispatch<SetStateAction<string>>;
-}
-
 export interface IFavoriteItemProps {
-  favoriteList: Set<string>;
-  setCity: Dispatch<SetStateAction<string>>;
   city: string;
 }
 
 export interface IHeartButtonProps {
   onClick: () => void;
   className: string;
-}
-
-export interface IHeaderProps {
-  setCity: Dispatch<SetStateAction<string>>;
 }
 
 export interface ITabProps {

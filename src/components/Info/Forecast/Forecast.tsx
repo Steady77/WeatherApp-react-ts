@@ -1,10 +1,10 @@
-import { FC, useContext } from 'react';
-import { DataContext } from '../../../App';
-import { IDataContext } from '../../../types';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { selectForecastData } from '../../../redux/forecast/selectors';
 import ForecastItem from './ForecastItem';
 
 const Forecast: FC = () => {
-  const { forecastData } = useContext(DataContext) as IDataContext;
+  const forecastData = useSelector(selectForecastData);
 
   if (!forecastData) {
     return (
@@ -21,7 +21,7 @@ const Forecast: FC = () => {
     <div className="info__forecast">
       <h4 className="info__forecast-city">{forecastData.city.name}</h4>
       <div className="forecast-box__boxes">
-        {forecastData.list.map((item) => (
+        {forecastData.list.map((item: any) => (
           <ForecastItem
             key={item.dt}
             {...item}

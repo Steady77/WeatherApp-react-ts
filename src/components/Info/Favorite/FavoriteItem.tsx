@@ -1,19 +1,24 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { setFavorite } from '../../../redux/actions/favoriteList';
+import { setCurrentCity } from '../../../redux/currentCity/actions';
+import { deleteFavorite } from '../../../redux/favoriteList/actions';
 import { IFavoriteItemProps } from '../../../types';
 
-const FavoriteItem: FC<IFavoriteItemProps> = ({ city, favoriteList, setCity }) => {
+const FavoriteItem: FC<IFavoriteItemProps> = ({ city }) => {
   const dispatch = useDispatch();
+
   const deleteFromFavorite = () => {
-    const list = new Set(Array.from(favoriteList).filter((item) => item !== city));
-    dispatch(setFavorite(list));
+    dispatch(deleteFavorite(city));
+  };
+
+  const onClickCity = () => {
+    dispatch(setCurrentCity(city));
   };
 
   return (
     <li className="locations__item">
       <span
-        onClick={() => setCity(city)}
+        onClick={onClickCity}
         className="locations__item-text"
       >
         {city}

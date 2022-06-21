@@ -37,7 +37,6 @@ ul {
 
 .weather {
     width: 600px;
-    height: 435px;
 }
 
 .form {
@@ -276,3 +275,37 @@ ul {
     display: block;
     margin: 0 auto;
 }
+
+.menu{
+    padding: 15px 0;
+    font-size: 22px;
+}
+
+.menu__list{
+    display: flex;
+}
+
+.menu__item{
+    margin-right: 25px;
+    border: 1px solid #000;
+    padding: 3px 7px;
+    cursor: pointer;
+}
+
+.menu__link{
+    text-decoration: none;
+    color: #000;
+}
+
+.help{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.help__text{
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+

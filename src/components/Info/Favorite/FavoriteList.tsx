@@ -1,20 +1,20 @@
-import { FC, useContext } from 'react';
+import { FC, useEffect } from 'react';
 import FavoriteItem from './FavoriteItem';
-import { IDataContext } from '../../../types';
-import { DataContext } from '../../../App';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { selectFavoriteList } from '../../../redux/favoriteList/selectors';
+import { saveToLocalStorage } from '../../../utils/helpers';
 
 const FavoriteList: FC = () => {
-  const { setCity } = useContext(DataContext) as IDataContext;
-  const favoriteList = useSelector((state: RootState) => state.favoriteList.items);
+  const favoriteList = useSelector(selectFavoriteList);
+
+  useEffect(() => {
+    saveToLocalStorage('favorite', favoriteList);
+  }, [favoriteList]);
 
   return (
     <ul className="locations__list">
-      {Array.from(favoriteList).map((city: string) => (
+      {favoriteList.map((city: string) => (
         <FavoriteItem
-          setCity={setCity}
-          favoriteList={favoriteList}
           key={city}
           city={city}
         />

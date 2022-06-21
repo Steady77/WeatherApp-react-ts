@@ -1,14 +1,21 @@
-import { FC, FormEvent, useState } from 'react';
-import { IHeaderProps } from '../types';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setCurrentCity } from '../redux/currentCity/actions';
 
-const Header: FC<IHeaderProps> = ({ setCity }) => {
+const Header: FC = () => {
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState('');
 
   const onSubmitCity = (event: FormEvent) => {
     event.preventDefault();
     if (!inputValue.trim()) return;
-    setCity(inputValue.trim());
+
+    dispatch(setCurrentCity(inputValue.trim()));
     setInputValue('');
+  };
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
   return (
@@ -18,7 +25,7 @@ const Header: FC<IHeaderProps> = ({ setCity }) => {
         className="form"
       >
         <input
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={onChangeInput}
           value={inputValue}
           className="header__search"
           type="text"

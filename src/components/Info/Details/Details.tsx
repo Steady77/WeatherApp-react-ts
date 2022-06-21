@@ -1,10 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { formatTime } from '../../../utils/helpers';
-import { DataContext } from '../../../App';
-import { IDataContext, IWeatherData } from '../../../types';
+import { useSelector } from 'react-redux';
+import { IWeatherData } from '../../../types';
+import { selectWeatherData } from '../../../redux/weather/selectors';
 
 const Details: FC = () => {
-  const { weatherData } = useContext(DataContext) as IDataContext;
+  const weatherData = useSelector(selectWeatherData);
 
   if (!weatherData) {
     return (

@@ -1,15 +1,15 @@
-import { FC, useContext } from 'react';
-import { DataContext } from '../../../App';
-import { IDataContext } from '../../../types';
+import { FC } from 'react';
 import HeartButton from './HeartButton/HeartButton';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
 import { useDispatch } from 'react-redux';
-import { setFavorite } from '../../../redux/actions/favoriteList';
+import { deleteFavorite, addFavorite } from '../../../redux/favoriteList/actions';
+import { IWeatherData } from '../../../types';
+import { selectWeatherData } from '../../../redux/weather/selectors';
+import { selectFavoriteList } from '../../../redux/favoriteList/selectors';
 
 const Now: FC = () => {
-  const { weatherData } = useContext(DataContext) as IDataContext;
-  const favoriteList = useSelector((state: RootState) => state.favoriteList.items);
+  const weatherData = useSelector(selectWeatherData);
+  const favoriteList = useSelector(selectFavoriteList);
   const dispatch = useDispatch();
 
   if (!weatherData) {
@@ -23,26 +23,27 @@ const Now: FC = () => {
     );
   }
 
+  const { name, main, weather } = weatherData as IWeatherData;
+
   const addToFavorite = () => {
-    dispatch(setFavorite(new Set(favoriteList.add(weatherData.name))));
+    dispatch(addFavorite(name));
   };
 
   const removeFromFavorite = () => {
-    const list = new Set(Array.from(favoriteList).filter((item) => item !== weatherData.name));
-    dispatch(setFavorite(list));
+    dispatch(deleteFavorite(name));
   };
 
   return (
     <div className="info__now">
-      <p className="info__now-tepmerature">{Math.round(weatherData.main.temp)}</p>
+      <p className="info__now-tepmerature">{Math.round(main.temp)}</p>
       <img
         className="info__now-img"
-        src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@4x.png`}
+        src={`http://openweathermap.org/img/wn/${weather[0].icon}@4x.png`}
         alt="cloud"
       />
       <div className="info__now-bottom">
-        <h4 className="info__now-city">{weatherData.name}</h4>
-        {favoriteList.has(weatherData.name) ? (
+        <h4 className="info__now-city">{name}</h4>
+        {favoriteList.includes(name) ? (
           <HeartButton
             onClick={removeFromFavorite}
             className={'info__now-favorite info__now-favorite--active'}
