@@ -2,7 +2,7 @@
 
 Приложение прогноза погоды.
 
-### https://steady77.github.io/movie_app/
+### https://steady77.github.io/WeatherApp-react-ts/
 
 # Стек технологий:
 
