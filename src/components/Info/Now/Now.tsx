@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import HeartButton from './HeartButton/HeartButton';
 import { IWeatherData } from '../../../types';
 import { selectFavoriteList } from '../../../redux/favoriteList/selectors';
@@ -8,12 +8,20 @@ import { useTypedDispatch, useTypedSelector } from '../../../hooks/redux';
 import Preloader from '../../../ui/Preloader';
 import Error from '../../../ui/Error';
 import { addFavorite, deleteFavorite } from '../../../redux/favoriteList/favoriteSlice';
+import { statsCounter } from '../../../utils/helpers';
 
 const Now: FC = () => {
   const dispatch = useTypedDispatch();
   const cityName = useTypedSelector(selectCurrentCity);
   const favoriteList = useTypedSelector(selectFavoriteList);
-  const { data, error, isLoading } = API.useFetchWeatherQuery(cityName);
+  const { data, error, isLoading, requestId, isSuccess } = API.useFetchWeatherQuery(cityName);
+  const [prevId] = useState(requestId);
+
+  useEffect(() => {
+    if (prevId !== requestId && isSuccess) {
+      statsCounter(name);
+    }
+  }, [requestId]);
 
   if (isLoading) {
     return <Preloader />;

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { useTypedDispatch } from '../hooks/redux';
 import { setCurrentCity } from '../redux/currentCity/currentCitySlice';
-import { capitalizeFirstLetter, statsCounter } from '../utils/helpers';
+import { capitalizeFirstLetter } from '../utils/helpers';
 
 const Header: FC = () => {
   const dispatch = useTypedDispatch();
@@ -12,7 +12,6 @@ const Header: FC = () => {
     if (!inputValue.trim()) return;
 
     const city = capitalizeFirstLetter(inputValue).trim();
-    statsCounter(city);
     dispatch(setCurrentCity(city));
     setInputValue('');
   };
