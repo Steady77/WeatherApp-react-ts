@@ -42,14 +42,12 @@ export const statsCounter = (city: string) => {
   saveToLocalStorage('stats', stats);
 };
 
-const capitalizeFirstLetter = (str: string) => {
-  return str[0].toUpperCase() + str.substring(1);
+export const capitalizeFirstLetter = (str: string) => {
+  return str[0].toUpperCase() + str.substring(1).toLowerCase();
 };
 
 export const stringOfUniqueCities = (cities: string[]) => {
-  const capitalized = cities.map((city) => capitalizeFirstLetter(city));
-  const uniqueString = Array.from(new Set(capitalized)).join(', ');
-  return uniqueString;
+  return Array.from(new Set(cities)).join(', ');
 };
 
 export const mostRequestedCity = (arr: any): any => {
