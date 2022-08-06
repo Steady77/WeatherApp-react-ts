@@ -310,6 +310,10 @@ ul {
   margin-bottom: 50px;
 }
 
+.stats__result {
+  font-weight: 400;
+}
+
 @-webkit-keyframes scaling-circle {
   0%,
   30%,

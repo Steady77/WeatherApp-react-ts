@@ -5,7 +5,6 @@ import { getFromLocalStorage, mostRequestedCity, stringOfUniqueCities } from '..
 const Stats: FC = () => {
   const cities = Object.keys(getFromLocalStorage('stats') ?? {});
   const citiesEntries = Object.entries(getFromLocalStorage('stats') ?? {});
-
   const [city, count] = mostRequestedCity(citiesEntries);
 
   return (
@@ -14,13 +13,13 @@ const Stats: FC = () => {
       <h2>
         Most requested:{' '}
         {city && (
-          <span style={{ fontWeight: '400' }}>
+          <span className="stats__result">
             {city} (times: {count})
           </span>
         )}
       </h2>
       <h2>
-        All cities viewed: <span style={{ fontWeight: '400' }}>{stringOfUniqueCities(cities)}</span>
+        All cities viewed: <span className="stats__result">{stringOfUniqueCities(cities)}</span>
       </h2>
       <Link
         className="menu__link"
