@@ -1,3 +1,12 @@
-# WeatherApp with React and TypeScript
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Приложение прогноза погоды.
+
+### https://steady77.github.io/movie_app/
+
+# Стек технологий:
+
+- React
+- Redux Toolkit
+- RTK Query
+- TypeScript
