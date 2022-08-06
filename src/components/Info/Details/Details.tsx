@@ -1,24 +1,28 @@
 import { FC } from 'react';
 import { formatTime } from '../../../utils/helpers';
-import { useSelector } from 'react-redux';
 import { IWeatherData } from '../../../types';
-import { selectWeatherData } from '../../../redux/weather/selectors';
+import { useTypedSelector } from '../../../hooks/redux';
+import { API } from '../../../services/api';
+import { selectCurrentCity } from '../../../redux/currentCity/selectors';
+import Preloader from '../../../ui/Preloader';
+import Error from '../../../ui/Error';
 
 const Details: FC = () => {
-  const weatherData = useSelector(selectWeatherData);
+  const cityName = useTypedSelector(selectCurrentCity);
+  const { data, error, isLoading } = API.useFetchWeatherQuery(cityName);
 
-  if (!weatherData) {
-    return (
-      <div
-        className="info__now"
-        style={{ fontSize: '22px', textAlign: 'center' }}
-      >
-        Loading...
-      </div>
-    );
+  if (isLoading) {
+    return <Preloader />;
   }
 
-  const { name, main, sys, timezone, weather } = weatherData as IWeatherData;
+  if (error) {
+    if ('data' in error) {
+      return <Error message={error.data.message} />;
+    }
+    return <Error message="Something went wrong" />;
+  }
+
+  const { name, main, sys, timezone, weather } = data as IWeatherData;
 
   return (
     <div className="info__details">

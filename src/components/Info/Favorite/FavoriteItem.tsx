@@ -1,11 +1,12 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentCity } from '../../../redux/currentCity/actions';
-import { deleteFavorite } from '../../../redux/favoriteList/actions';
+import { useTypedDispatch } from '../../../hooks/redux';
+import { setCurrentCity } from '../../../redux/currentCity/currentCitySlice';
+import { deleteFavorite } from '../../../redux/favoriteList/favoriteSlice';
+
 import { IFavoriteItemProps } from '../../../types';
 
 const FavoriteItem: FC<IFavoriteItemProps> = ({ city }) => {
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
 
   const deleteFromFavorite = () => {
     dispatch(deleteFavorite(city));

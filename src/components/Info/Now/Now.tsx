@@ -1,29 +1,32 @@
 import { FC } from 'react';
 import HeartButton from './HeartButton/HeartButton';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { deleteFavorite, addFavorite } from '../../../redux/favoriteList/actions';
 import { IWeatherData } from '../../../types';
-import { selectWeatherData } from '../../../redux/weather/selectors';
 import { selectFavoriteList } from '../../../redux/favoriteList/selectors';
+import { API } from '../../../services/api';
+import { selectCurrentCity } from '../../../redux/currentCity/selectors';
+import { useTypedDispatch, useTypedSelector } from '../../../hooks/redux';
+import Preloader from '../../../ui/Preloader';
+import Error from '../../../ui/Error';
+import { addFavorite, deleteFavorite } from '../../../redux/favoriteList/favoriteSlice';
 
 const Now: FC = () => {
-  const weatherData = useSelector(selectWeatherData);
-  const favoriteList = useSelector(selectFavoriteList);
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
+  const cityName = useTypedSelector(selectCurrentCity);
+  const favoriteList = useTypedSelector(selectFavoriteList);
+  const { data, error, isLoading } = API.useFetchWeatherQuery(cityName);
 
-  if (!weatherData) {
-    return (
-      <div
-        className="info__now"
-        style={{ fontSize: '22px', textAlign: 'center' }}
-      >
-        Loading...
-      </div>
-    );
+  if (isLoading) {
+    return <Preloader />;
   }
 
-  const { name, main, weather } = weatherData as IWeatherData;
+  if (error) {
+    if ('data' in error) {
+      return <Error message={error.data.message} />;
+    }
+    return <Error message="Something went wrong" />;
+  }
+
+  const { name, main, weather } = data as IWeatherData;
 
   const addToFavorite = () => {
     dispatch(addFavorite(name));

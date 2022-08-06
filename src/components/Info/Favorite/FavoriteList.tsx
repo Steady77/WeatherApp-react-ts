@@ -1,11 +1,11 @@
 import { FC, useEffect } from 'react';
 import FavoriteItem from './FavoriteItem';
-import { useSelector } from 'react-redux';
 import { selectFavoriteList } from '../../../redux/favoriteList/selectors';
 import { saveToLocalStorage } from '../../../utils/helpers';
+import { useTypedSelector } from '../../../hooks/redux';
 
 const FavoriteList: FC = () => {
-  const favoriteList = useSelector(selectFavoriteList);
+  const favoriteList = useTypedSelector(selectFavoriteList);
 
   useEffect(() => {
     saveToLocalStorage('favorite', favoriteList);

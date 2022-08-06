@@ -1,16 +1,19 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentCity } from '../redux/currentCity/actions';
+import { useTypedDispatch } from '../hooks/redux';
+import { setCurrentCity } from '../redux/currentCity/currentCitySlice';
+import { capitalizeFirstLetter, statsCounter } from '../utils/helpers';
 
 const Header: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const [inputValue, setInputValue] = useState('');
 
   const onSubmitCity = (event: FormEvent) => {
     event.preventDefault();
     if (!inputValue.trim()) return;
 
-    dispatch(setCurrentCity(inputValue.trim()));
+    const city = capitalizeFirstLetter(inputValue).trim();
+    statsCounter(city);
+    dispatch(setCurrentCity(city));
     setInputValue('');
   };
 
